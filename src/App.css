@@ -1,0 +1,84 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.app {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #97bbcf;
+}
+
+
+.chat-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chat-bubble {
+  max-width: 900%;
+  padding: 12px;
+  border-radius: 12px;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background-color: #97bbcf;
+  border-top: 1px solid #97bbcf;
+}
+
+.chat-input input {
+  flex: 1;
+  max-width: 900%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #97bbcf;
+  background-color: #c0d6e0;
+
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+
+  /* Original background color */
+  background-color: #007bff;
+
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+}
+
+/*  Hover effect */
+.chat-input button:hover {
+  background-color: #0056b3;
+}
