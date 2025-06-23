@@ -8,6 +8,8 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
+import ClearChatButton from "./components/ClearChatButton";
+
 
 
 const fakeReply = (input) => {
@@ -65,7 +67,10 @@ function App() {
   };
 
   return (
+    
     <div className="app">
+        <ClearChatButton setMessages={setMessages} />
+
       <div className="chat-container">
         {messages.map((msg, idx) => (
           <div key={idx} className={`chat-bubble ${msg.role}`}>
@@ -89,6 +94,7 @@ function App() {
         <button type="submit" disabled={loading}>Send</button>
       </form>
     </div>
+
   );
 }
 
