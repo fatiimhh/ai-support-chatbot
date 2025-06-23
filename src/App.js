@@ -8,9 +8,10 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
+
+import ChatBubble from "./components/ChatBubble";
+import ChatInput from "./components/ChatInput";
 import ClearChatButton from "./components/ClearChatButton";
-
-
 
 const fakeReply = (input) => {
   return `🤖 (Mock reply) You said: "${input}"`;
@@ -31,7 +32,6 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  
   const handleSend = async (e) => {
     e.preventDefault();
     const trimmed = userInput.trim();
@@ -47,17 +47,14 @@ function App() {
     };
 
     try {
-      //Firestore
       await addDoc(collection(db, "messages"), userMessage);
 
-      
       const assistantMessage = {
         role: "assistant",
         content: fakeReply(trimmed),
         timestamp: new Date(),
       };
 
-      // Save  reply to Firestore
       await addDoc(collection(db, "messages"), assistantMessage);
     } catch (error) {
       console.error("Firebase error:", error);
@@ -67,34 +64,23 @@ function App() {
   };
 
   return (
-    
     <div className="app">
-        <ClearChatButton setMessages={setMessages} />
-
+      <ClearChatButton setMessages={setMessages} />
       <div className="chat-container">
         {messages.map((msg, idx) => (
-          <div key={idx} className={`chat-bubble ${msg.role}`}>
-            {msg.content}
-          </div>
+          <ChatBubble key={idx} role={msg.role} content={msg.content} />
         ))}
         {loading && (
-          <div className="chat-bubble assistant">
-            Typing<span className="dot">.</span><span className="dot">.</span><span className="dot">.</span>
-          </div>
+          <ChatBubble role="assistant" content="Typing..." />
         )}
       </div>
-
-      <form onSubmit={handleSend} className="chat-input">
-        <input
-          type="text"
-          placeholder="Ask me anything..."
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-        />
-        <button type="submit" disabled={loading}>Send</button>
-      </form>
+      <ChatInput
+        userInput={userInput}
+        setUserInput={setUserInput}
+        handleSend={handleSend}
+        loading={loading}
+      />
     </div>
-
   );
 }
 
