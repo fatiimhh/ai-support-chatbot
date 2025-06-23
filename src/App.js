@@ -8,10 +8,11 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
-
 import ChatBubble from "./components/ChatBubble";
 import ChatInput from "./components/ChatInput";
 import ClearChatButton from "./components/ClearChatButton";
+import MessageList from "./components/MessageList";
+
 
 const fakeReply = (input) => {
   return `🤖 (Mock reply) You said: "${input}"`;
@@ -66,14 +67,7 @@ function App() {
   return (
     <div className="app">
       <ClearChatButton setMessages={setMessages} />
-      <div className="chat-container">
-        {messages.map((msg, idx) => (
-          <ChatBubble key={idx} role={msg.role} content={msg.content} />
-        ))}
-        {loading && (
-          <ChatBubble role="assistant" content="Typing..." />
-        )}
-      </div>
+      <MessageList messages={messages} loading={loading} />
       <ChatInput
         userInput={userInput}
         setUserInput={setUserInput}
